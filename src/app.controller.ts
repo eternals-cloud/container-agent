@@ -1,27 +1,35 @@
-import { Controller, Delete, Get, Headers, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Headers,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getRequest() {
-    return this.appService.getHello();
+  @Get('*')
+  async getRequest(@Headers() headers) {
+    return await this.appService.getRequest(headers);
   }
 
-  @Post()
-  postRequest() {
-    return this.appService.getHello();
+  @Post('*')
+  async postRequest(@Headers() headers, @Body() body) {
+    return await this.appService.postRequest(headers, body);
   }
 
-  @Patch()
-  patchRequest() {
-    return this.appService.getHello();
+  @Patch('*')
+  async patchRequest(@Headers() headers, @Body() body) {
+    return await this.appService.patchRequest(headers, body);
   }
 
-  @Delete()
-  deleteRequest() {
-    return this.appService.getHello();
+  @Delete('*')
+  async deleteRequest(@Headers() headers) {
+    return await this.appService.deleteRequest(headers);
   }
 }
